@@ -1,7 +1,10 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import { FiStar, FiUsers } from 'react-icons/fi'
 
 const CourseCard = ({ image, title, category, instructor, rating, students, price, level }) => {
+  const navigate = useNavigate()
+  
   const getCategoryColor = (cat) => {
     const colors = {
       programming: 'bg-blue-100 text-blue-700',
@@ -22,7 +25,10 @@ const CourseCard = ({ image, title, category, instructor, rating, students, pric
   }
 
   return (
-    <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition duration-300 overflow-hidden group cursor-pointer">
+    <div 
+      onClick={() => navigate('/error')}
+      className="bg-white rounded-xl shadow-md hover:shadow-xl transition duration-300 overflow-hidden group cursor-pointer"
+    >
       {/* Image Container */}
       <div className="relative h-48 overflow-hidden bg-gradient-to-br from-primary to-secondary">
         <img

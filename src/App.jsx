@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from 'react'
-import { Routes, Route, useNavigate } from 'react-router-dom'
+import  { useState, useEffect } from 'react'
+import { Routes, Route, useNavigate, Link } from 'react-router-dom'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import Hero from './components/Hero'
 import FeaturedCourses from './components/FeaturedCourses'
-import SignInPage from './pages/SignInPage'
-import { authService } from './services/authService'
+import SignUpPage from './pages/SignUpPage'
+import ErrorPage from './pages/ErrorPage'
+
 
 function Home({ isLoggedIn }) {
   return (
@@ -21,9 +22,9 @@ function Home({ isLoggedIn }) {
             <p className="text-xl text-gray-100 mb-8 max-w-2xl mx-auto">
               Join thousands of students and begin your journey towards mastering the most in-demand skills.
             </p>
-            <a href="/signin" className="px-8 py-4 bg-white text-primary font-bold rounded-lg hover:shadow-lg transition duration-200 hover:scale-105 inline-block">
+            <Link to="/signup" className="px-8 py-4 bg-white text-primary font-bold rounded-lg hover:shadow-lg transition duration-200 hover:scale-105 inline-block">
               Get Started Now
-            </a>
+            </Link>
           </div>
         </section>
       </main>
@@ -38,18 +39,11 @@ function App() {
   const [user, setUser] = useState(null)
   const navigate = useNavigate()
 
-  // Check if user is already logged in
   useEffect(() => {
-    const token = authService.getToken()
-    const storedUser = authService.getUser()
-
-    if (token && storedUser) {
-      setIsLoggedIn(true)
-      setUser(storedUser)
-    } else {
-      // If not logged in, send user to sign-in page so sign-in is shown when opening the link
-      navigate('/signin', { replace: true })
-    }
+   
+    
+      navigate('/signup', { replace: true })
+    
 
     // Listen for storage changes (login from another tab)
     window.addEventListener('storage', handleStorageChange)
@@ -58,48 +52,24 @@ function App() {
   }, [])
 
   const handleStorageChange = () => {
-    const token = authService.getToken()
-    const storedUser = authService.getUser()
+   
 
-    if (token && storedUser) {
-      setIsLoggedIn(true)
-      setUser(storedUser)
-      navigate('/', { replace: true })
-    } else {
+   
       setIsLoggedIn(false)
       setUser(null)
-      navigate('/signin', { replace: true })
-    }
-  }
-
-  const handleSignInSuccess = (userData) => {
-    setUser(userData)
-    setIsLoggedIn(true)
-    // After sign in, go to home and scroll to courses
-    navigate('/', { replace: true })
-    setTimeout(() => {
-      const coursesSection = document.getElementById('courses')
-      if (coursesSection) {
-        coursesSection.scrollIntoView({ behavior: 'smooth' })
-      }
-    }, 800)
-  }
-
-  const handleLogout = () => {
-    setIsLoggedIn(false)
-    setUser(null)
-    authService.logout()
-    navigate('/signin', { replace: true })
+      navigate('/signup', { replace: true })
+    
   }
 
   return (
     <>
-      <Header isLoggedIn={isLoggedIn} onLogout={handleLogout} />
+      <Header isLoggedIn={isLoggedIn}  />
 
       <Routes>
-        <Route path="/signin" element={<SignInPage onSignInSuccess={handleSignInSuccess} isLoggedIn={isLoggedIn} onLogout={handleLogout} />} />
+        <Route path="/signup" element={<SignUpPage />} />
         <Route path="/" element={<Home isLoggedIn={isLoggedIn} />} />
-        {/* Fallback: redirect to home */}
+        <Route path="/error" element={<ErrorPage />} />
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
     </>
   )

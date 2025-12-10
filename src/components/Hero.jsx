@@ -1,7 +1,9 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import { FiArrowRight, FiCheckCircle } from 'react-icons/fi'
 
 const Hero = ({ isLoggedIn }) => {
+  const navigate = useNavigate()
   return (
     <section className="min-h-screen bg-gradient-to-br from-dark via-primary to-secondary pt-20 pb-20 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -33,14 +35,23 @@ const Hero = ({ isLoggedIn }) => {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <a
-                href={isLoggedIn ? '#courses' : '#signin'}
+              <button
+                onClick={() => {
+                  if (isLoggedIn) {
+                    document.getElementById('courses')?.scrollIntoView({ behavior: 'smooth' })
+                  } else {
+                    navigate('/signup')
+                  }
+                }}
                 className="px-8 py-4 bg-white text-primary font-bold rounded-lg hover:shadow-lg transition duration-200 flex items-center justify-center gap-2 hover:scale-105"
               >
                 {isLoggedIn ? 'Explore Courses' : 'Get Started Now'}
                 <FiArrowRight />
-              </a>
-              <button className="px-8 py-4 border-2 border-white text-white font-bold rounded-lg hover:bg-white hover:text-primary transition duration-200">
+              </button>
+              <button 
+                onClick={() => navigate('/error')}
+                className="px-8 py-4 border-2 border-white text-white font-bold rounded-lg hover:bg-white hover:text-primary transition duration-200"
+              >
                 Watch Demo
               </button>
             </div>

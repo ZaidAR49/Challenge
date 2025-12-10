@@ -1,7 +1,9 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import CourseCard from './CourseCard'
 
 const FeaturedCourses = () => {
+  const navigate = useNavigate()
   const courses = [
     {
       id: 1,
@@ -12,7 +14,7 @@ const FeaturedCourses = () => {
       students: 1250,
       price: 49.99,
       level: 'Beginner',
-      image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=500&h=300&fit=crop',
+      image: 'https://placehold.co/600x400/6366f1/ffffff?text=Python+Programming',
     },
     {
       id: 2,
@@ -23,7 +25,7 @@ const FeaturedCourses = () => {
       students: 2840,
       price: 79.99,
       level: 'Intermediate',
-      image: 'https://images.unsplash.com/photo-1677442d019cecf16e4e8e0e64bcf2d78d73a92a?w=500&h=300&fit=crop',
+      image: 'https://placehold.co/600x400/8b5cf6/ffffff?text=Machine+Learning',
     },
     {
       id: 3,
@@ -34,7 +36,7 @@ const FeaturedCourses = () => {
       students: 1890,
       price: 89.99,
       level: 'Intermediate',
-      image: 'https://images.unsplash.com/photo-1516321318423-f06f70d504f0?w=500&h=300&fit=crop',
+      image: 'https://placehold.co/600x400/ec4899/ffffff?text=Cybersecurity',
     },
     {
       id: 4,
@@ -45,7 +47,7 @@ const FeaturedCourses = () => {
       students: 3210,
       price: 59.99,
       level: 'Beginner',
-      image: 'https://images.unsplash.com/photo-1633356122544-f134324ef6db?w=500&h=300&fit=crop',
+      image: 'https://placehold.co/600x400/3b82f6/ffffff?text=Web+Development',
     },
     {
       id: 5,
@@ -56,7 +58,7 @@ const FeaturedCourses = () => {
       students: 1540,
       price: 99.99,
       level: 'Advanced',
-      image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=500&h=300&fit=crop',
+      image: 'https://placehold.co/600x400/10b981/ffffff?text=NLP+%26+AI',
     },
     {
       id: 6,
@@ -67,7 +69,7 @@ const FeaturedCourses = () => {
       students: 950,
       price: 109.99,
       level: 'Advanced',
-      image: 'https://images.unsplash.com/photo-1557821552-17105176677c?w=500&h=300&fit=crop',
+      image: 'https://placehold.co/600x400/f59e0b/ffffff?text=Network+Security',
     },
   ]
 
@@ -103,7 +105,10 @@ const FeaturedCourses = () => {
 
         {/* CTA Button */}
         <div className="text-center mt-16">
-          <button className="px-8 py-4 bg-gradient-to-r from-primary to-secondary text-white font-bold rounded-lg hover:shadow-lg transition duration-200">
+          <button 
+            onClick={() => navigate('/error')}
+            className="px-8 py-4 bg-gradient-to-r from-primary to-secondary text-white font-bold rounded-lg hover:shadow-lg transition duration-200"
+          >
             Browse All Courses
           </button>
         </div>

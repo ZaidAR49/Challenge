@@ -2,22 +2,18 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FiMenu, FiX, FiLogOut } from 'react-icons/fi'
 import { GiBookmark } from 'react-icons/gi'
-import { authService } from '../services/authService'
 
-const Header = ({ isLoggedIn, onLogout }) => {
+
+const Header = ({ isLoggedIn }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
-  const user = authService.getUser()
+  
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen)
   }
 
-  const handleLogout = () => {
-    authService.logout()
-    if (onLogout) onLogout()
-    setIsDropdownOpen(false)
-  }
+  
 
   return (
     <header className="sticky top-0 z-50 bg-white shadow-md">
@@ -37,14 +33,14 @@ const Header = ({ isLoggedIn, onLogout }) => {
             <a href="#courses" className="text-dark hover:text-primary transition font-medium">
               Courses
             </a>
-            <a href="#about" className="text-dark hover:text-primary transition font-medium">
+            <Link to="/error" className="text-dark hover:text-primary transition font-medium">
               About
-            </a>
-            <a href="#contact" className="text-dark hover:text-primary transition font-medium">
+            </Link>
+            <Link to="/error" className="text-dark hover:text-primary transition font-medium">
               Contact
-            </a>
+            </Link>
 
-            {isLoggedIn && user ? (
+            {false ? (
               <div className="relative">
                 <button
                   onClick={() => setIsDropdownOpen(!isDropdownOpen)}
@@ -72,10 +68,10 @@ const Header = ({ isLoggedIn, onLogout }) => {
               </div>
             ) : (
               <Link
-                to="/signin"
+                to="/signup"
                 className="px-6 py-2 bg-gradient-to-r from-primary to-secondary text-white rounded-lg hover:shadow-lg transition font-semibold"
               >
-                Sign In
+                Sign Up
               </Link>
             )}
           </nav>
@@ -92,12 +88,12 @@ const Header = ({ isLoggedIn, onLogout }) => {
             <a href="#courses" className="block text-dark hover:text-primary transition font-medium">
               Courses
             </a>
-            <a href="#about" className="block text-dark hover:text-primary transition font-medium">
+            <Link to="/error" className="block text-dark hover:text-primary transition font-medium">
               About
-            </a>
-            <a href="#contact" className="block text-dark hover:text-primary transition font-medium">
+            </Link>
+            <Link to="/error" className="block text-dark hover:text-primary transition font-medium">
               Contact
-            </a>
+            </Link>
             {isLoggedIn && user ? (
               <button
                 onClick={handleLogout}
@@ -107,10 +103,10 @@ const Header = ({ isLoggedIn, onLogout }) => {
               </button>
             ) : (
               <Link
-                to="/signin"
+                to="/signup"
                 className="block px-6 py-2 bg-gradient-to-r from-primary to-secondary text-white rounded-lg hover:shadow-lg transition font-semibold text-center"
               >
-                Sign In
+                Sign Up
               </Link>
             )}
           </nav>
