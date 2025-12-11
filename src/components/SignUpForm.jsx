@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import { FiMail, FiLock, FiUser, FiAlertCircle } from 'react-icons/fi'
+import { Link } from 'react-router-dom'
 
 const SignUpForm = ({ onSignUp }) => {
   const [formData, setFormData] = useState({
@@ -11,6 +12,7 @@ const SignUpForm = ({ onSignUp }) => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
+  const [agreeToPolicy, setAgreeToPolicy] = useState(false)
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -38,6 +40,10 @@ const SignUpForm = ({ onSignUp }) => {
     }
     if (formData.password.length < 6) {
       setError('Password must be at least 6 characters')
+      return false
+    }
+    if (!agreeToPolicy) {
+      setError('You must agree to the policies and terms')
       return false
     }
     return true
@@ -154,9 +160,22 @@ const SignUpForm = ({ onSignUp }) => {
               />
             </div>
           </div>
+          <div className="flex items-start gap-3 py-3">
+            <input
+              type="checkbox"
+              id="agreePolicy"
+              checked={agreeToPolicy}
+              onChange={(e) => setAgreeToPolicy(e.target.checked)}
+              className="mt-1 w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary cursor-pointer"
+              disabled={loading}
+            />
+            <label htmlFor="agreePolicy" className="text-sm text-gray-700">
+              I agree to all policies and terms. <Link to="/policy" className="text-primary font-semibold hover:text-secondary transition">Read our policy</Link>
+            </label>
+          </div>
           <button
             type="submit"
-            disabled={loading}
+            disabled={loading || !agreeToPolicy}
             className="w-full py-3 bg-gradient-to-r from-primary to-secondary text-white font-bold rounded-lg hover:shadow-lg transition duration-200 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
           >
             {loading ? (
@@ -171,7 +190,9 @@ const SignUpForm = ({ onSignUp }) => {
         </form>
         <div className="mt-6 text-center">
           <span className="text-gray-600 text-sm">If you have an account, you can </span>
-          <button className="text-primary font-semibold px-3 py-1 rounded-lg bg-gray-100 cursor-not-allowed opacity-60" disabled>Sign In</button>
+          <Link to="/error">
+           <button className="text-primary font-semibold px-3 py-1 rounded-lg bg-gray-100  opacity-60" >Sign In</button>
+          </Link>
         </div>
       </div>
     </div>

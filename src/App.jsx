@@ -5,6 +5,7 @@ import Footer from './components/Footer'
 import Hero from './components/Hero'
 import FeaturedCourses from './components/FeaturedCourses'
 import SignUpPage from './pages/SignUpPage'
+import PolicyPage from './pages/PolicyPage'
 import ErrorPage from './pages/ErrorPage'
 
 
@@ -67,6 +68,7 @@ function App() {
 
       <Routes>
         <Route path="/signup" element={<SignUpPage />} />
+        <Route path="/policy" element={<PolicyPage />} />
         <Route path="/" element={<Home isLoggedIn={isLoggedIn} />} />
         <Route path="/error" element={<ErrorPage />} />
         <Route path="*" element={<ErrorPage />} />
